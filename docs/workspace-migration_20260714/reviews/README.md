@@ -12,5 +12,6 @@ superseded_by: []
 | Record | Gate | 结论 |
 |---|---|---|
 | [R1_t2_archive_verification.md](R1_t2_archive_verification.md) | T2 删除前归档独立复核 | `CLEARED` |
+| [R2_t3_repository_migration_verification.md](R2_t3_repository_migration_verification.md) | T3 A08-A10、公开仓库与远程只读边界复核 | `CLEARED` |
 
 每个 record 只对其 Input Packet 和验收行有效，不外推为整项迁移完成。

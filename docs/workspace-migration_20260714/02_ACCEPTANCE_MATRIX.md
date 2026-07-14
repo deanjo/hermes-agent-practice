@@ -20,9 +20,9 @@ superseded_by: []
 | A05 | 所有 `docs/**/*.md` frontmatter 合规 | 六个必填字段齐全，无状态/权威冲突 | `PASS` |
 | A06 | 第一阶段没有提前 clone 或建 Git | `sources/` 无源码仓库；Practice 与父目录均无 `.git` | `PASS` |
 | A07 | Feishu patch 已归档且可恢复 | 桌面归档 `working-tree.patch` SHA256 `2c304955...dd08`；`git apply --check` PASS；恢复内容 7/7 一致；[R1](reviews/R1_t2_archive_verification.md) `CLEARED`；原路径已移除 | `PASS` |
-| A08 | Hermes fork 为执行时最新干净基线 | origin/upstream 正确；`HEAD == upstream/main`；状态干净 | `INSUFFICIENT_EVIDENCE` |
-| A09 | OpenClaw 官方源码已独立 clone | origin 正确且状态干净 | `INSUFFICIENT_EVIDENCE` |
-| A10 | DingTalk Kit 本地未提交资产完整迁入 | 新旧状态清单与内容哈希一致 | `INSUFFICIENT_EVIDENCE` |
+| A08 | Hermes fork 为执行时最新干净基线 | `origin=deanjo`、`upstream=NousResearch`；本地与两个实时远端 main 均为 `226e8de827a6...`；状态干净；[R2](reviews/R2_t3_repository_migration_verification.md) `CLEARED` | `PASS` |
+| A09 | OpenClaw 官方源码已独立 clone | `origin=https://github.com/openclaw/openclaw.git`；main 在 `202dea59bdf5...` 上状态干净；远端后续前进不改变独立官方 clone 的验收语义；[R2](reviews/R2_t3_repository_migration_verification.md) `CLEARED` | `PASS` |
+| A10 | DingTalk Kit 本地未提交资产完整迁入 | 新旧均为 `f4e781651df7...`、`1 modified + 16 untracked`；内容 `17/17 PASS`；双方 manifest SHA256 均为 `c7ee88ba...fc22eb6`；旧目录保留 | `PASS` |
 | A11 | Product Confirmation 不改 Hermes 核心 | Kit 测试通过；Hermes core diff 为零 | `INSUFFICIENT_EVIDENCE` |
 | A12 | T21 最小修复可向上游提交 | 三类回归通过；仅两份生产文件；官方 PR URL | `INSUFFICIENT_EVIDENCE` |
 | A13 | T5v 插件职责完整 | 输出预算、多模态、失败归并、首次停止与兼容测试通过 | `INSUFFICIENT_EVIDENCE` |

@@ -20,4 +20,4 @@ superseded_by: []
 
 ## 当前阶段
 
-`T3_GOAL_ACTIVE`。A01-A07 已通过；当前只执行 T3 的仓库基线、clone、dirty 内容迁移和公开建仓，禁止提前进入 T4。
+`T3_PASS / T4_NOT_STARTED`。A01-A10 已通过；T3 的仓库基线、dirty 内容迁移、公开建仓和独立复核均已收口。下一阶段必须单独启动 T4，不能把本次验收视为 T21、Product Confirmation 或 T5v 已实现。

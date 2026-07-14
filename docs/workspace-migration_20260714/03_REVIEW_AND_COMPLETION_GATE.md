@@ -65,6 +65,16 @@ user_acceptance=confirmed_20260714
 - 删除后证据：源 worktree 路径已不存在、worktree 登记已移除、退役分支仍指向 `c2b7669ad3dd...`、桌面归档仍 6/6 校验通过。
 - H1/H3 镜像和启动时间与 T2 前一致，T2 未修改远程运行态。
 
+## T3 独立复核
+
+- Record：[reviews/R2_t3_repository_migration_verification.md](reviews/R2_t3_repository_migration_verification.md)
+- Roll-up：`CLEARED`，Critical=0、Important=0、Minor=0。
+- A08：Hermes 的 origin、upstream、本地 main 与两个实时远端 main 均为 `226e8de827a669e8ffa7035b27d70c19e44b1208`，工作树干净。
+- A09：OpenClaw 的 origin 为官方仓库，main 在官方 fetch/fast-forward 后为 `202dea59bdf5d0bf3bb1b50424ee8a68af9efae8`，工作树干净；官方随后继续提交不属于 A09 的冻结要求。
+- A10：DingTalk Kit 新旧状态均为 `1 modified + 16 untracked`，内容比较 `17/17 PASS`，manifest SHA256 均为 `c7ee88bac561904f7a4e87aecee5c67c531a176e448ea3fd91b27b476fc22eb6`。
+- 两个新项目在 GitHub 均为 `PUBLIC / main / MIT`；Practice 初始提交 `2c5f0eec...`，Runtime Guardrails 初始提交 `461a1713...`。
+- H1 从 T2 基线变为 `pc-quotefix-20260714`。首次发现时按停止条件暂停；当前事故 RCA、镜像补丁账本、`compose.yml` 的 `2026-07-14T15:24:04+0800` 修改时间和 Docker die/destroy/start 事件证明这是 T3 之外的已记录部署。H3 仍为 `...t11-20260707210056`，启动时间仍为 `2026-07-08T09:10:16.506671846Z`。
+
 ## 后续实现门禁
 
 每个代码任务最多进行一轮独立 Design Drift + Code Review 合并审阅，输入必须包含：

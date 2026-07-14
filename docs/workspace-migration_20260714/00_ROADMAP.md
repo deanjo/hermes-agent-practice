@@ -59,7 +59,7 @@ Shard documents: 01 baseline and decisions; 02 acceptance matrix; 03 review gate
 |---|---|---|
 | T1 | [工作区与文档规则](tasks/T1_workspace_and_repo_layout.md) | `PASS / USER_ACCEPTED_20260714` |
 | T2 | [退役 Feishu wsfix](tasks/T2_retire_feishu_wsfix.md) | `PASS` |
-| T3 | [建立干净源码与项目仓库](tasks/T3_refresh_upstream_and_migrate_projects.md) | `IN_PROGRESS / GOAL_ACTIVE` |
+| T3 | [建立干净源码与项目仓库](tasks/T3_refresh_upstream_and_migrate_projects.md) | `PASS / REVIEW_CLEARED_20260714` |
 | T4 | [T21、Product、T5v 实现与开源](tasks/T4_extract_core_and_plugins.md) | `NOT_STARTED` |
 | T5 | [旧 docs 治理与最终清仓](tasks/T5_govern_docs_and_cleanup_legacy.md) | `NOT_STARTED` |
 
@@ -83,4 +83,4 @@ Shard documents: 01 baseline and decisions; 02 acceptance matrix; 03 review gate
 
 ## 当前结论
 
-用户已于 2026-07-14 确认第一阶段。T2 已完成并通过 A07。T3 已设为 active goal：主 Agent 串行执行 Git/GitHub 写操作，三个 subagent 仅做源码、DingTalk manifest 和建仓条件的只读核验；T4-T5 尚未开始。
+用户已于 2026-07-14 确认第一阶段。T2 已通过 A07；T3 已通过 A08-A10 和独立复核，结果记录在 [R2](reviews/R2_t3_repository_migration_verification.md)。T3 期间 H1 被另一项已有账本的 quotefix 部署更新；暂停核对后已用当前 RCA、补丁账本、远端 compose 时间和 Docker 生命周期事件闭环归因，本任务没有执行远程写操作。T4-T5 尚未开始。
