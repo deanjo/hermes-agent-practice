@@ -45,6 +45,7 @@ superseded_by: []
 | B21 | H1 当前是“直接 COPY + Kit 标准安装器”的混合发布 | 现役 mentionguard 镜像历史有 8 个直接 COPY 项；同一层把精确 Kit `8b9f185` 归档后运行安装器；旧账本 `docs/hermes-image-patches-knowledge/README.md:33-55,130-132` |
 | B22 | H1/H3 在 T4 前只读基线已固定 | H1 StartedAt=`2026-07-15T05:14:55Z`、RestartCount=`0`；H3 StartedAt=`2026-07-08T09:10:16Z`、RestartCount=`0` |
 | B23 | H1 15:30 data 层变化已归因 | 远程 SOP SHA256=`91629af9...`；本地当前权威文档 `05_qwen-thinking-chain-and-diagnosis-fixes.md:83-90` 记录同一 `0/20 → 4/4` 实验和“铁律七”固化 |
+| B24 | Hermes fork 已刷新到执行时官方基线 | 两次远端查询均为 `569b912d7d0931c7256e9f5fb326609e9deda377`；merge-base 为旧 HEAD `226e8de`；`git merge --ff-only` 后本地、origin、upstream 三者相等且工作树干净 |
 
 ## 核心决策
 
@@ -65,7 +66,7 @@ superseded_by: []
 ## 当前未知
 
 - `[已关闭]` T3 当时官方 SHA 已由 R2 固定为 B12；B17 说明当前已继续前进，T4 必须重新冻结而不是改写历史验收。
-- `[未知]` `569b912` 或编码开始前更晚的 upstream 是否已修复 T21、Product 接口缺口或 T5v 首次停止；T4 必须先复现再编码。
+- `[进行中]` T21、Product 与 T5v worker 正在 `569b912` 的公开接口上复现和实现；最终判定以各自测试与 review 为准。
 - `[未知]` mention 分支中 `37e0147` 的 gateway 三文件哪些已被最新官方吸收；Product 只精选 adapter 行为，禁止整体迁入三个文件。
 - `[未知]` T4 三路完成后采用哪个具体发布窗口；在用户单独授权 T4R 前不构建、部署或重启 H1。
 - `[未知]` 596 个旧资产中每一项的最终分类；T5 在逐项证据审计前不得批量删除。

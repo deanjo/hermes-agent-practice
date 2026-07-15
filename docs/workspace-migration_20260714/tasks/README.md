@@ -16,7 +16,7 @@ superseded_by: []
 | T1 | [Workspace and repo layout](T1_workspace_and_repo_layout.md) | `PASS / USER_ACCEPTED_20260714` |
 | T2 | [Retire Feishu wsfix](T2_retire_feishu_wsfix.md) | `PASS` |
 | T3 | [Refresh upstream and migrate projects](T3_refresh_upstream_and_migrate_projects.md) | `PASS / REVIEW_CLEARED_20260714` |
-| T4 | [Extract core and plugins](T4_extract_core_and_plugins.md) | `GOAL_ACTIVE / BASELINE_REFRESH` |
+| T4 | [Extract core and plugins](T4_extract_core_and_plugins.md) | `GOAL_ACTIVE / IMPLEMENTATION_ACTIVE` |
 | T4R | [Release fixed versions to H1](T4R_release_to_h1.md) | `BLOCKED / REQUIRES_EXPLICIT_DEPLOY_AUTHORIZATION` |
 | T5 | [Govern docs and clean legacy](T5_govern_docs_and_cleanup_legacy.md) | `NOT_STARTED` |
 

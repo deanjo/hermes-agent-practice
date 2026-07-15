@@ -65,7 +65,7 @@ Shard documents: 01 baseline and decisions; 02 acceptance matrix; 03 review gate
 | T1 | [工作区与文档规则](tasks/T1_workspace_and_repo_layout.md) | `PASS / USER_ACCEPTED_20260714` |
 | T2 | [退役 Feishu wsfix](tasks/T2_retire_feishu_wsfix.md) | `PASS` |
 | T3 | [建立干净源码与项目仓库](tasks/T3_refresh_upstream_and_migrate_projects.md) | `PASS / REVIEW_CLEARED_20260714` |
-| T4 | [T21、Product、T5v 实现与开源](tasks/T4_extract_core_and_plugins.md) | `GOAL_ACTIVE / BASELINE_REFRESH` |
+| T4 | [T21、Product、T5v 实现与开源](tasks/T4_extract_core_and_plugins.md) | `GOAL_ACTIVE / IMPLEMENTATION_ACTIVE` |
 | T4R | [固定版本并受控发布到 H1](tasks/T4R_release_to_h1.md) | `BLOCKED / REQUIRES_EXPLICIT_DEPLOY_AUTHORIZATION` |
 | T5 | [旧 docs 治理与最终清仓](tasks/T5_govern_docs_and_cleanup_legacy.md) | `NOT_STARTED` |
 
@@ -93,4 +93,4 @@ Shard documents: 01 baseline and decisions; 02 acceptance matrix; 03 review gate
 
 ## 当前结论
 
-T3 的 `226e8de` 快照已通过 A08-A10 和 [R2](reviews/R2_t3_repository_migration_verification.md) 独立复核，但它不是永久 live 基线。2026-07-15 16:37 CST 再查时，官方 Hermes 已到 `569b912`，相对 fork `226e8de` 领先 157 个提交、涉及 225 个文件；因此 T4 已启动但先停在 `BASELINE_REFRESH`，同步并复现前不编码。H1 当前 mentionguard 镜像、启动时间 `2026-07-15T05:14:55Z`、RestartCount `0` 已完成外部变更归因；本任务仍未执行远程写操作。T4R 与 T5 尚未开始。
+T3 的 `226e8de` 快照已通过 A08-A10 和 [R2](reviews/R2_t3_repository_migration_verification.md) 独立复核，但它不是永久 live 基线。2026-07-15 T4 现场复核时官方已到 `569b912d7d09...`；主 Agent 验证 `226e8de → 569b912` 是 157 个提交的纯快进后，已用 `--ff-only` 更新本地 main，并把 fork main 推到同一完整 SHA。三路隔离 worktree 已分别固定在 Hermes `569b912`、Kit `f4e7816`、Guardrails `461a171`，T4 进入 `IMPLEMENTATION_ACTIVE`。H1 当前 mentionguard 镜像、StartedAt=`2026-07-15T05:14:55Z`、RestartCount=`0` 已完成外部变更归因；本任务未执行远程写操作。T4R 与 T5 尚未开始。

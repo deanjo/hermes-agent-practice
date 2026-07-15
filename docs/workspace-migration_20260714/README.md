@@ -21,4 +21,4 @@ superseded_by: []
 
 ## 当前阶段
 
-`T3_PASS / T4_GOAL_ACTIVE / BASELINE_REFRESH`。A01-A10 已通过；T3 的仓库与迁移证据仍有效。T4 因官方 Hermes 从 `226e8de` 前进到 `569b912`，先刷新 fork 和复现，再实现 T21、Product Confirmation 与 T5v；A11-A13、A15 尚未通过。T4R 仍因没有单独 H1 部署授权而 BLOCKED。
+`T3_PASS / T4_GOAL_ACTIVE / IMPLEMENTATION_ACTIVE`。A01-A10 已通过；Hermes 本地、fork 与执行时官方 main 已同步为 `569b912d7d09...`，三路隔离 worktree 正在实现 T21、Product Confirmation 与 T5v。A11-A13、A15 尚未通过；T4R 仍因没有单独 H1 部署授权而 BLOCKED。

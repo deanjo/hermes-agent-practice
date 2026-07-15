@@ -11,7 +11,7 @@ superseded_by: []
 
 ## 当前状态
 
-`GOAL_ACTIVE / BASELINE_REFRESH`。2026-07-15 16:37 CST，Hermes fork 仍为 `226e8de`，官方已到 `569b912`，差 157 个提交、225 个文件；完成快进同步和最新版复现前，三个 worker 不得编码。
+`GOAL_ACTIVE / IMPLEMENTATION_ACTIVE`。主 Agent 已验证 `226e8de → 569b912d7d0931c7256e9f5fb326609e9deda377` 为纯快进，并把本地与 fork main 同步到该执行时官方 SHA；三个隔离 worktree 已建立，worker 只在各自固定写集内实现。
 
 ## 共同前置门禁
 
