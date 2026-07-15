@@ -46,6 +46,13 @@ superseded_by: []
 | B22 | H1/H3 在 T4 前只读基线已固定 | H1 StartedAt=`2026-07-15T05:14:55Z`、RestartCount=`0`；H3 StartedAt=`2026-07-08T09:10:16Z`、RestartCount=`0` |
 | B23 | H1 15:30 data 层变化已归因 | 远程 SOP SHA256=`91629af9...`；本地当前权威文档 `05_qwen-thinking-chain-and-diagnosis-fixes.md:83-90` 记录同一 `0/20 → 4/4` 实验和“铁律七”固化 |
 | B24 | Hermes fork 已刷新到执行时官方基线 | 两次远端查询均为 `569b912d7d0931c7256e9f5fb326609e9deda377`；merge-base 为旧 HEAD `226e8de`；`git merge --ff-only` 后本地、origin、upstream 三者相等且工作树干净 |
+| B25 | T21 已形成 fork 提交和官方 PR | `fca44fd00b5c0575469c51e96ec5fa731d5c7222`；仅 `agent/conversation_loop.py`、`agent/turn_finalizer.py` 两份生产文件；官方 PR [#64892](https://github.com/NousResearch/hermes-agent/pull/64892) |
+| B26 | Product/mention 已回到 Kit 源码项目 | Kit `0e37e209cc6c1df8b96dd28f80adb7c00e09bc11`、PR [#1](https://github.com/deanjo/hermes-dingtalk-kit/pull/1)；Product/mention 的 Hermes core diff 为零 |
+| B27 | Product-only 与旧兼容路径已经拆账 | 完整 Hermes `569b912` 上 `--plugins-only` verifier `35/35`、二次安装无变化；默认 legacy compat 缺 `run.reply_sentinel_constant`、`session.path_sensitive_validation` 两个锚点并成功回滚，结论 `ADAPT_REQUIRED` |
+| B28 | T5v 首次停止需要通用 core 接缝 | Guardrails `14c28d4444273232c8753314ff928927fce651c3`、PR [#1](https://github.com/deanjo/hermes-agent-runtime-guardrails/pull/1)；fork `dd45532f563e72adcf0f605ff11ea441187232fc`、官方 PR [#64895](https://github.com/NousResearch/hermes-agent/pull/64895) 只改 `agent/tool_guardrails.py` 和 `run_agent.py` 两份通用生产文件 |
+| B29 | T4 三路源码验收已收口 | T21 `15/15`、Kit `105 passed + 14 subtests`、T5v core `27/27`、Guardrails `45/45`；三路独立 review 均为 Critical=0、Important=0 |
+| B30 | H1/H3 收口时启动时间变化已做功能归因 | H1 StartedAt=`2026-07-15T08:53:57.916638417Z`；H3 StartedAt=`2026-07-15T09:11:33.186856916Z`；两次都是 vision 数据层修改后的显式 `docker restart`，不是主机重启、容器重建、换镜像或 T4 源码部署 |
+| B31 | 收口时官方与 fork main 仍等于冻结基线 | 实时 `git ls-remote`、本地 main、origin/main、upstream/main 均为 `569b912d7d0931c7256e9f5fb326609e9deda377` |
 
 ## 核心决策
 
@@ -57,17 +64,18 @@ superseded_by: []
 | Hermes 修改 | 所有自有核心修复只在执行时最新官方基线上的 fork 分支实现，并向官方提 PR | B17 证明冻结基线会过期；[04](04_SOURCE_RELEASE_AND_UPGRADE_POLICY.md) 固定源码权威与升级取舍 |
 | Feishu wsfix | 导出可恢复 patch 后退役 | 睡眠复盘与 B16 支持根因在 Mac 睡眠；分支当前仍有 7 个修改文件，删除前必须归档 |
 | Product Confirmation | 放入 DingTalk Kit，核心修改目标为零 | 最新 Hermes 已有 `pre_gateway_dispatch` 公开 hook；staffId 来自 `event.source.user_id_alt` |
-| DingTalk 发布 | Kit GitHub 提交先于镜像；标准安装器只原子替换 Kit 自有插件目录，核心只做可验证的最小兼容接线 | B19-B21；整分支或旧 gateway 整文件覆盖会带回历史漂移 |
+| DingTalk 发布 | Kit GitHub 提交先于镜像；Product-only 可用 `--plugins-only` 原子安装，默认 legacy compat 适配前不可发布 | B19-B21、B26-B27；整分支或旧 gateway 整文件覆盖会带回历史漂移 |
 | T21 | 保留两文件最小核心修复并提交官方 PR | 流式内容在插件输出转换前可能已发送，需在 conversation loop 与 finalizer 拦截 |
-| T5v | 建独立通用插件项目 | 输出预算和结果转换可使用 middleware/hook；只在最新版无法首次 halt 时考虑一文件核心补丁 |
+| T5v | 独立通用插件负责治理；必要时配两文件通用 core 接缝 | 失败测试证明公开 hook 只能提出 halt、官方 core 不消费；`agent/tool_guardrails.py` 解析通用请求，`run_agent.py` 只修正首次停止话术，均不识别插件专名 |
 | Docs | 规则先行、随任务迁移、最后清仓 | B03-B05 证明一次性全量搬运会把代码、缓存和证据混入新文档仓库 |
-| 发布状态 | 分开记录 `SOURCE_COMPLETE / RELEASE_READY / RUNTIME_DEPLOYED` | 本地 75/75 测试只能证明源码行为，不能证明 H1 已更新；定义见 [04](04_SOURCE_RELEASE_AND_UPGRADE_POLICY.md) |
+| 发布状态 | 分开记录 `SOURCE_COMPLETE / RELEASE_READY / RUNTIME_DEPLOYED` | 最终 Kit `105 passed + 14 subtests` 也只能证明源码行为，不能证明 H1 已更新；定义见 [04](04_SOURCE_RELEASE_AND_UPGRADE_POLICY.md) |
 
 ## 当前未知
 
 - `[已关闭]` T3 当时官方 SHA 已由 R2 固定为 B12；B17 说明当前已继续前进，T4 必须重新冻结而不是改写历史验收。
-- `[进行中]` T21、Product 与 T5v worker 正在 `569b912` 的公开接口上复现和实现；最终判定以各自测试与 review 为准。
-- `[未知]` mention 分支中 `37e0147` 的 gateway 三文件哪些已被最新官方吸收；Product 只精选 adapter 行为，禁止整体迁入三个文件。
-- `[未知]` T4 三路完成后采用哪个具体发布窗口；在用户单独授权 T4R 前不构建、部署或重启 H1。
+- `[已关闭]` T21、Product 与 T5v 源码实现、测试、GitHub PR 和独立 review 已由 [R3](reviews/R3_t4_source_release_verification.md) 收口。
+- `[已关闭]` mention 分支行为已精选进入 Kit；默认 legacy compat 在 `569b912` 上的两个缺失锚点为 `ADAPT_REQUIRED`，未整体迁入 gateway 三文件。
+- `[未知]` 官方 PR #64892、#64895 与两个项目 PR #1 的合入时间；四个 PR 当前均为 OPEN。
+- `[未知]` 采用 Product-only 还是先适配默认 legacy compat，以及具体 H1 发布窗口；在用户单独授权 T4R 前不构建、部署或重启 H1。
 - `[未知]` 596 个旧资产中每一项的最终分类；T5 在逐项证据审计前不得批量删除。
 - `[未知]` H3 是否以其他补丁形式实现相同能力；本计划不根据镜像名推断。

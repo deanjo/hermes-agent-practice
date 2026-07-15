@@ -21,4 +21,4 @@ superseded_by: []
 
 ## 当前阶段
 
-`T3_PASS / T4_GOAL_ACTIVE / IMPLEMENTATION_ACTIVE`。A01-A10 已通过；Hermes 本地、fork 与执行时官方 main 已同步为 `569b912d7d09...`，三路隔离 worktree 正在实现 T21、Product Confirmation 与 T5v。A11-A13、A15 尚未通过；T4R 仍因没有单独 H1 部署授权而 BLOCKED。
+`T3_PASS / T4_PASS / SOURCE_COMPLETE / RELEASE_READY_SCOPED`。A01-A13、A15 已通过；四个固定提交、四个 PR、测试和独立复核见 [R3](reviews/R3_t4_source_release_verification.md)。Product 的发布范围只包含 `--plugins-only`；默认 legacy compat 仍需适配。T4R 因没有单独 H1 部署授权和安装模式选择而 `BLOCKED`；T5 未开始，A14、A16 未通过。

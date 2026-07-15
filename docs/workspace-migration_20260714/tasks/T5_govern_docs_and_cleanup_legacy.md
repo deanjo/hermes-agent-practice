@@ -19,6 +19,20 @@ superseded_by: []
 2. 随任务迁移：T2-T4 分别迁移 Feishu、T21、Product、T5v 的相关文档和证据。
 3. 最后清仓：对剩余旧资产逐项记录 `migrate / merge / archive / discard / defer`。
 
+## 已锁定的 `migrate` 清单
+
+2026-07-15 只读存在性检查确认以下七组资产仍是升级、运行归因或 Product 行为的必要证据；T5 必须先高保真迁移，不能判为 `discard`：
+
+1. `docs/hermes-image-patches-knowledge/` 整目录。
+2. `docs/hermes1-agong-dev-loop_20260707/reports/n9_first_trial_and_fixes_20260714.md`。
+3. `docs/hermes1-agong-dev-loop_20260707/reports/n10_mention_meta_and_handoff_guard_20260714.md`。
+4. `docs/hermes1-agong-dev-loop_20260707/reports/n11_diagnosis_confabulation_rca_20260715.md`。
+5. `docs/hermes1-agong-dev-loop_20260707/reports/incident_design_hallucination_rca_20260714.md`。
+6. `docs/hermes1-agong-dev-loop_20260707/reports/t5pc_product_confirmation_rollout_package_20260714.md`。
+7. `docs/hermes-vision-image-fix/` 整目录；其中 `02_vision-timeout-fallback-401_20260715.md:60-103` 解释 H1/H3 最新 data 层 restart 与尚未修复的上游 fallback 问题。
+
+这些旧文档没有本项目的 YAML frontmatter，迁移时必须用 live 日志、Git 和远程只读结果复核，不得仅凭旧正文把它们升级为当前权威。
+
 ## 分类规则
 
 - Markdown：先读 frontmatter；无有效元信息时用最近 README 和代码/日志核验权威性。被运行时直接加载的 `SKILL.md`、prompt（提示词）或插件说明属于功能资产，迁入对应源码项目，不能只按普通文档处理。
@@ -36,10 +50,12 @@ superseded_by: []
 
 最多三个只读 subagent 按互斥来源目录分区盘点，分别交付 `migrate / merge / archive / discard / defer` 建议及文件锚点。主 Agent统一处理跨目录重复、权威冲突、目标 README 和实际移动；任何 subagent 都不得批量删除旧资产。
 
+T5 只治理资产，不代跑 hermes-1 的业务工作：供应商 contact 投影层修复、bot 的 `merge_uat` 或部署申请、真实消息、以及 Kit PR 何时合入 main，均保持原负责人和单独授权边界。
+
 ## 验收与删除门禁
 
 - 每个迁移后的 docs 目录有唯一 `README.md`，所有 Markdown frontmatter 合规且链接有效。
-- 新项目 Git 状态、测试、GitHub URL、T21 PR 和归档清单完整。
+- 新项目 Git 状态、测试、GitHub URL、四个 T4 PR（T21 #64892、core #64895、Kit #1、Guardrails #1）和归档清单完整。
 - 结束时重新只读检查 H1/H3；本任务不得改变镜像和启动时间。
 - A14 只有在分类表无 `defer`、A15 PASS、A16 PASS 或有证据判定 NOT_APPLICABLE、独立最终验收 PASS 后才能通过。
 - A14 未通过时只报告剩余项，旧 `/Users/cicada/SourceCode/openclaw-harmes` 整体保留。
