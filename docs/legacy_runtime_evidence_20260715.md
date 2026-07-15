@@ -11,7 +11,7 @@ superseded_by: []
 
 ## 结论
 
-旧 `docs/` 的 603 个文件已逐字节进入本机私有归档；压缩包大小 `3,434,754` bytes，SHA256 为 `878ea76ea557463bddb377797226878f8b68dd7dabc03e71d6ac26a830738dc6`，包内文件数与源文件数均为 `603`。原件不进入公开 Git，避免把旧命令、实例标识和认证材料重新发布成当前权威。
+旧 `docs/` 的 603 个文件已逐字节进入本机私有归档；压缩包大小 `3,388,891` bytes，SHA256 为 `a632845fe3c8fe3a7918201fe1e2314bc40d407c63fd1ce6d1c688dcfddf723b`。包内为 `603` 个普通文件和 `186` 个目录项，普通文件与源目录 `603/603` 一致，AppleDouble `._*` 元数据成员为 `0`。原件不进入公开 Git，避免把旧命令、实例标识和认证材料重新发布成当前权威。
 
 私有归档位置：`projects/hermes-runtime-assets/private-archives/openclaw-harmes-docs-raw-20260715.tar.gz`。逐文件路径、大小、SHA256 和分类位于同项目的 `manifests/docs_inventory.tsv`。
 
