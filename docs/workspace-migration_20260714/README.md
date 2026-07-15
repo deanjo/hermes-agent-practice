@@ -22,3 +22,7 @@ superseded_by: []
 ## 当前阶段
 
 `T1-T5_PASS / RUNTIME_DEPLOYED_H1_20260715 / REVIEW_CLEARED_20260715`。H1 已从最新稳定 Release `v2026.7.7.2`（`9de9c25f620ff7f1ce0fd5457d596052d5159596`）受控发布为运行提交 `62b304750762c69e7d4e611c5f2ec3ff296f58e6`，当前镜像摘要为 `sha256:b67a60b32319f78a7b62b3b67d220f43e9d64c6ff4ca77c95bddbc0738ad188d`，`StartedAt=2026-07-15T13:11:21.295530766Z`、`RestartCount=0`。A01-A16 全部通过；T5 独立复核与旧根删除证据见 [R5](reviews/R5_t5_legacy_cleanup_verification.md)。源码历史复核见 [R3](reviews/R3_t4_source_release_verification.md)，Release 对账与生产证据见 [T4R1](tasks/T4R1_reconcile_latest_release.md) 和 [T4R](tasks/T4R_release_to_h1.md)。
+
+## 按需证据
+
+- [H1_DATA_CLEANUP_AND_RETENTION_20260715.md](H1_DATA_CLEANUP_AND_RETENTION_20260715.md)：2026-07-15 H1 data 清理候选、保留原因和后续删除门槛；这是历史证据，不是当前 live 状态入口。
