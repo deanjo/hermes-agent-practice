@@ -20,18 +20,22 @@ superseded_by: []
 | A05 | 所有 `docs/**/*.md` frontmatter 合规 | 六个必填字段齐全，无状态/权威冲突 | `PASS` |
 | A06 | 第一阶段没有提前 clone 或建 Git | `sources/` 无源码仓库；Practice 与父目录均无 `.git` | `PASS` |
 | A07 | Feishu patch 已归档且可恢复 | 桌面归档 `working-tree.patch` SHA256 `2c304955...dd08`；`git apply --check` PASS；恢复内容 7/7 一致；[R1](reviews/R1_t2_archive_verification.md) `CLEARED`；原路径已移除 | `PASS` |
-| A08 | Hermes fork 为执行时最新干净基线 | `origin=deanjo`、`upstream=NousResearch`；本地与两个实时远端 main 均为 `226e8de827a6...`；状态干净；[R2](reviews/R2_t3_repository_migration_verification.md) `CLEARED` | `PASS` |
+| A08 | T3 在验收时使用最新干净 Hermes 基线 | T3 验收时 `origin=deanjo`、`upstream=NousResearch`，本地与两个当时远端 main 均为 `226e8de827a6...`；[R2](reviews/R2_t3_repository_migration_verification.md) `CLEARED`；该 PASS 是历史快照，不替代 T4 重新冻结 | `PASS` |
 | A09 | OpenClaw 官方源码已独立 clone | `origin=https://github.com/openclaw/openclaw.git`；main 在 `202dea59bdf5...` 上状态干净；远端后续前进不改变独立官方 clone 的验收语义；[R2](reviews/R2_t3_repository_migration_verification.md) `CLEARED` | `PASS` |
 | A10 | DingTalk Kit 本地未提交资产完整迁入 | 新旧均为 `f4e781651df7...`、`1 modified + 16 untracked`；内容 `17/17 PASS`；双方 manifest SHA256 均为 `c7ee88ba...fc22eb6`；旧目录保留 | `PASS` |
-| A11 | Product Confirmation 不改 Hermes 核心 | Kit 测试通过；Hermes core diff 为零 | `INSUFFICIENT_EVIDENCE` |
-| A12 | T21 最小修复可向上游提交 | 三类回归通过；仅两份生产文件；官方 PR URL | `INSUFFICIENT_EVIDENCE` |
-| A13 | T5v 插件职责完整 | 输出预算、多模态、失败归并、首次停止与兼容测试通过 | `INSUFFICIENT_EVIDENCE` |
-| A14 | 旧目录可整体删除 | 所有资产有五分类结论，无 `defer`，独立最终验收 PASS | `INSUFFICIENT_EVIDENCE` |
+| A11 | Product Confirmation 归 Kit 且不改 Hermes 核心 | Kit 固定提交、五工具与状态机测试、DingTalk mention/errcode 测试、干净官方基线标准安装测试通过；Hermes core diff 为零 | `INSUFFICIENT_EVIDENCE` |
+| A12 | T21 在最新官方基线上保持最小并可向上游提交 | 记录执行时 upstream SHA 与复现；三类回归通过；仅两份生产文件；fork 分支/提交和官方 PR URL | `INSUFFICIENT_EVIDENCE` |
+| A13 | T5v 插件职责完整 | Guardrails 固定提交；输出预算、多模态、失败归并、首次停止、安装/卸载/回滚与兼容测试通过；无 Hermes core diff，或另有已证明必要的一文件官方 PR | `INSUFFICIENT_EVIDENCE` |
+| A14 | 旧目录可整体删除 | 所有资产有五分类结论，无 `defer`；A15 PASS；A16 PASS 或有证据判定 NOT_APPLICABLE；独立最终验收 PASS | `INSUFFICIENT_EVIDENCE` |
+| A15 | T4 三路源码和发布材料可追溯 | `upstream_sha / fork_sha / kit_sha / guardrails_sha` 齐全；三路达到 `RELEASE_READY`；安装清单、兼容清单、回滚与独立 review 齐全 | `INSUFFICIENT_EVIDENCE` |
+| A16 | 固定版本已受控发布到 H1 | 用户明确部署授权；固定镜像 digest；H1 image、StartedAt、RestartCount、安装验证、离线冒烟和回滚证据齐全 | `BLOCKED` |
 
 ## 一票否决
 
 - A07、A10 任一内容校验失败，禁止移除对应旧资产。
-- A08 不满足时，禁止在新 Hermes 上实现或提交 PR。
+- T4 编码时本地 Hermes 不等于执行时冻结的 upstream SHA，禁止实现或提交 PR；不能拿 A08 的历史 PASS 代替。
 - A11 出现非零核心 diff，必须回到 Product hook 设计，不得以“先兼容”为由通过。
 - A12 超过两个生产文件，必须重新证明必要性。
-- A14 仍有 `defer` 或无最终验收记录，禁止删除旧顶层。
+- A15 缺任一源码 SHA、安装清单或回滚证据，不得把 T4 写成 `RELEASE_READY`。
+- A16 没有单独 H1 部署授权时保持 `BLOCKED`，不得用本地测试改成 PASS。
+- A14 仍有 `defer`、A15 未 PASS、A16 未处理或无最终验收记录，禁止删除旧顶层。

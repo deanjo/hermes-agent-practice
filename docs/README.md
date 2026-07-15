@@ -17,6 +17,7 @@ superseded_by: []
 |---|---|---|
 | [workspace-migration_20260714/README.md](workspace-migration_20260714/README.md) | current | 本次工作区治理的导航入口 |
 | [workspace-migration_20260714/00_ROADMAP.md](workspace-migration_20260714/00_ROADMAP.md) | current | 目标、顺序、停止条件和阶段状态 |
+| [workspace-migration_20260714/04_SOURCE_RELEASE_AND_UPGRADE_POLICY.md](workspace-migration_20260714/04_SOURCE_RELEASE_AND_UPGRADE_POLICY.md) | current | 源码权威、官方升级取舍和三个发布状态 |
 | [../CONTRIBUTING_DOCS.md](../CONTRIBUTING_DOCS.md) | current | 文档目录、frontmatter 和迁移规范 |
 
 ## 加载顺序

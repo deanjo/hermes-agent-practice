@@ -19,6 +19,7 @@ superseded_by: []
 4. 文档标题和正文使用中文；首次出现的英文术语给出中文解释。
 5. 图片、JSON 样例等证据只能放在对应主题的 `assets/`，且该目录也必须有 `README.md` 说明来源和引用者。
 6. Python、shell、测试代码放 `scripts/` 或项目源码，不放 `docs/`；`.pyc`、PID、日志、缓存和 `.DS_Store` 不进入仓库。
+7. 被运行时直接读取的 `SKILL.md`、prompt（提示词）、插件描述或规则 Markdown 是功能资产，跟随对应源码项目和测试；`docs/` 只保存其契约、版本与验证证据。
 
 ## 2. 必填 frontmatter
 
@@ -59,6 +60,23 @@ superseded_by: []
 
 目录按需要创建，不为凑结构创建空目录。
 
+### Operations 文档最小运行谱系
+
+`operations/` 中任何声称“当前生效”或“可发布”的文档，除六个通用 frontmatter 字段外，正文必须给出以下字段；缺一项就只能写成带时间的证据快照：
+
+| 字段 | 例子或要求 |
+|---|---|
+| `as_of` | `2026-07-15T16:37:00+08:00`，说明检查时间 |
+| `target` | `H1/hermes-1`，不能只写“线上” |
+| `source_commit` | Hermes、Kit、Guardrails 的完整 Git SHA |
+| `image_digest` | `sha256:...`；tag 只能辅助，不能替代 digest |
+| `data_layers` | 挂载配置、运行 skill、额外依赖的路径、时间和摘要；没有则写 `none` |
+| `verification` | 实际测试、安装验证、StartedAt、RestartCount 和结果 |
+| `rollback` | 上一镜像 digest、data 备份与恢复步骤 |
+| `superseded_by` | 被新运行记录替代时指向新文件；仍 current 时与 frontmatter 一致为空 |
+
+源码权威和三个发布状态以 [源码、发布与官方升级原则](docs/workspace-migration_20260714/04_SOURCE_RELEASE_AND_UPGRADE_POLICY.md) 为准；operations 文档不能把运行容器反写成源码。
+
 ## 4. 新建文档流程
 
 1. 从最近的 `README.md` 确认本目录职责和当前权威入口。
@@ -88,3 +106,5 @@ superseded_by: []
 - 当前文档没有指向已 superseded 文档作为权威来源。
 - 文档没有收录凭据值、`.env` 内容或原始认证材料。
 - 迁移文档记录了旧路径和迁移结论。
+- 当前 operations 文档包含 `as_of / target / source_commit / image_digest / data_layers / verification / rollback / superseded_by`。
+- 功能 Markdown、配置、实验数据和 build context 已按运行资产分类，没有伪装成普通说明文档。
