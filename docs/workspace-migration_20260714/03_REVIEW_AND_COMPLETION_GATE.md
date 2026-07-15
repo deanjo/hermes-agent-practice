@@ -56,7 +56,7 @@ user_acceptance=confirmed_20260714
 - T5 可按旧 docs 的互斥目录分区盘点，但 canonical（权威）分类表、README 和最终移动由主 Agent统一写入。
 - subagent 使用有限任务上下文，不接收整段会话；输出上限约 60 行，只含结论、证据锚点、修改文件、测试和阻塞点。
 - 如果两个任务需要修改同一个仓库，后一个改为串行；当前明确案例是 T5v 的 `agent/tool_guardrails.py`、`run_agent.py` 两文件通用 core 接缝，已在 T21 完成后由主 Agent 另建分支处理。
-- T4R 不与三个实现 worker 并行；它会读取三路固定提交和发布材料，没有单独 H1 部署授权时不得启动。
+- T4R1 可用三个 subagent 并行做 Release、旧补丁和 H1 数据的只读核验；实现写入独立 worktree，同一 Hermes 文件由主 Agent 串行整合。T4R 的 H1 清理、快照、构建、切换和重启仍由主 Agent 串行执行，不能与远程 worker 写操作并行。
 
 ## T2 独立复核
 
@@ -84,14 +84,21 @@ user_acceptance=confirmed_20260714
 - A12：fork `fca44fd...`、官方 PR #64892；生产文件仅 `agent/conversation_loop.py`、`agent/turn_finalizer.py`，边界回归 `15/15`。
 - A13：Guardrails `14c28d4...`、`45/45`；通用 core `dd45532...`、`27/27`。失败测试证明首次 halt 需要 core 消费方；两份生产文件不识别插件专名。
 - A15：四路完整 SHA、四个 PR、安装/回滚与兼容清单齐全；Product 的发布结论限定为 `RELEASE_READY_PRODUCT_ONLY`。
-- H1/H3 收口时的 restart 已归因为任务外 vision 数据层修复；容器与镜像 ID 未变，没有 T4 源码部署。T4R 仍因授权和安装模式未定而 `BLOCKED`。
+- H1/H3 在 R3 收口时的 restart 已归因为任务外 vision 数据层修复；容器与镜像 ID 未变，R3 时点没有 T4 源码部署。后续授权、Release 对账和生产发布已由 [T4R](tasks/T4R_release_to_h1.md) 与 [R4](reviews/R4_t4r_h1_release_verification.md) 关闭，不回写 R3 的历史结论。
+
+## T4R 独立复核
+
+- Record：[reviews/R4_t4r_h1_release_verification.md](reviews/R4_t4r_h1_release_verification.md)
+- Roll-up：`CLEARED`；固定 Release、三路源码、两个镜像摘要、data/dbstore 快照、安装幂等和 H1 运行证据齐全。
+- A16：H1 运行 Hermes `0.18.2`，目标镜像摘要 `sha256:b67a60b32319f78a7b62b3b67d220f43e9d64c6ff4ca77c95bddbc0738ad188d`，StartedAt=`2026-07-15T13:11:21.295530766Z`、RestartCount=`0`；两个端口和离线验证通过。
+- H3 与发布前基线一致；真实消息、业务仓操作和旧目录删除均未执行。
 
 ## 后续实现门禁
 
 每个代码任务最多进行一轮独立 Design Drift + Code Review 合并审阅，输入必须包含：
 
 - 当前 task 与 acceptance 行。
-- 执行时官方 upstream 完整 SHA、工作分支基线 SHA，以及问题在该基线的复现结果。
+- 运行线的 latest Release tag/解引用 SHA、官方 PR 线的当前 upstream/main SHA、各工作分支基线 SHA，以及问题在两条基线的复现结果。
 - changed files 或 diff。
 - 实际运行的测试及结果。
 - 目标 GitHub 提交、安装/卸载/回滚材料；若只是源码阶段，明确写 `SOURCE_COMPLETE`。
@@ -112,7 +119,7 @@ T4 每路 review 还必须检查：
 - T21 的 fork 分支确实从执行时 upstream SHA 创建，生产修改不超过两个文件，并存在官方 PR URL。
 - Product 的最终提交只来自 Kit 项目；Product/mention 不新增 Hermes core hunk。`--plugins-only` 可原子替换 Kit 自有插件目录；默认 legacy compat 的两个 `ADAPT_REQUIRED` 锚点适配前不得发布，仍不得整文件带入旧 gateway 三文件。
 - T5v 默认只有 Guardrails 项目改动；若失败测试证明公开 hook 无法表达首次停止，可串行增加 `agent/tool_guardrails.py`、`run_agent.py` 两份通用 core 文件，但不得识别插件专名。
-- 三路发布清单都记录 `upstream_sha / fork_sha / kit_sha / guardrails_sha`，不使用短 tag 代替完整 SHA。
+- 三路发布清单都记录 `release_tag / release_sha / upstream_main_sha / runtime_fork_sha / pr_fork_sha / kit_sha / guardrails_sha`；tag 必须同时记录解引用完整 SHA。
 
 ## 最终完成定义
 
@@ -120,7 +127,7 @@ T4 每路 review 还必须检查：
 2. 独立 reviewer 给出带文件锚点的结论。
 3. 主 Agent逐行更新验收矩阵，不把局部测试写成全链路 PASS。
 4. 记录未验证范围、GitHub URL、上游 PR、旧资产归档和回滚方式。
-5. 只有 A01-A16 全部 PASS 或经证据判定 NOT_APPLICABLE，才能删除旧顶层；A16 没有部署授权时保持 BLOCKED，旧顶层继续保留。
+5. 只有 A01-A16 全部 PASS 或经证据判定 NOT_APPLICABLE，才能删除旧顶层；当前 A16 已 PASS，但 A14 仍为 `INSUFFICIENT_EVIDENCE`，所以旧顶层继续保留。
 
 ## 停止 review 的条件
 

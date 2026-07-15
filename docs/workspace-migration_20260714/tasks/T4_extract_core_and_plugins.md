@@ -70,7 +70,7 @@ worker 只加载本 Roadmap、当前 task、对应仓库规则和必要代码路
 
 ## 验收
 
-- A11-A13 与 A15 已由 R3 判为 `PASS`；A16 仍为 `BLOCKED`。
+- A11-A13 与 A15 已由 R3 判为 `PASS`；A16 在 R3 时点仍为 `BLOCKED`，后续状态以 [验收矩阵](../02_ACCEPTANCE_MATRIX.md) 和 [R4](../reviews/R4_t4r_h1_release_verification.md) 为准。
 - 每路一次独立合并 review；Critical、Important 为零。
 - 三路均达到 `SOURCE_COMPLETE`；T21/T5v 达到 `RELEASE_READY`，Product 的范围严格限定为 `RELEASE_READY_PRODUCT_ONLY`。
 - 不运行真实 DingTalk/Feishu 消息，不构建、不部署、不重启远程实例；后续只由 [T4R](T4R_release_to_h1.md) 在单独授权后执行。

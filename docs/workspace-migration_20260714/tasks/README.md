@@ -17,7 +17,8 @@ superseded_by: []
 | T2 | [Retire Feishu wsfix](T2_retire_feishu_wsfix.md) | `PASS` |
 | T3 | [Refresh upstream and migrate projects](T3_refresh_upstream_and_migrate_projects.md) | `PASS / REVIEW_CLEARED_20260714` |
 | T4 | [Extract core and plugins](T4_extract_core_and_plugins.md) | `PASS / SOURCE_COMPLETE / RELEASE_READY_SCOPED / REVIEW_CLEARED_20260715` |
-| T4R | [Release fixed versions to H1](T4R_release_to_h1.md) | `BLOCKED / REQUIRES_DEPLOY_AUTHORIZATION_AND_INSTALL_MODE` |
+| T4R1 | [Reconcile latest stable Release](T4R1_reconcile_latest_release.md) | `PASS / RELEASE_RECONCILED_20260715` |
+| T4R | [Release fixed versions to H1](T4R_release_to_h1.md) | `PASS / RUNTIME_DEPLOYED_H1_20260715` |
 | T5 | [Govern docs and clean legacy](T5_govern_docs_and_cleanup_legacy.md) | `NOT_STARTED` |
 
 进入下一任务前，先在验收矩阵中完成上一任务对应行。

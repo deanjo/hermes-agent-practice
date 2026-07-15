@@ -112,4 +112,6 @@ Scope=SOURCE_COMPLETE / RELEASE_READY_SCOPED
 | A16 | `BLOCKED` | 没有部署授权、镜像 digest 或 H1 冒烟，不能用本地测试替代 |
 | A14 | `INSUFFICIENT_EVIDENCE` | T5 未执行且 A16 阻塞，旧目录继续保留 |
 
+以上 A16/A14 是 R3 的 `SOURCE_COMPLETE` 时点结论，不是后续运行态。T4R 的最终生产结论见 [R4_t4r_h1_release_verification.md](R4_t4r_h1_release_verification.md)；本记录保留原始 SHA、测试和边界，不追写成部署证据。
+
 本任务没有构建镜像，没有部署或重启 H1/H3，没有发真实消息，没有删除旧目录，也没有批准 bot 的 `merge_uat` 或业务仓部署申请。

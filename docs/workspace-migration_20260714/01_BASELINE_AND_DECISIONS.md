@@ -53,6 +53,16 @@ superseded_by: []
 | B29 | T4 三路源码验收已收口 | T21 `15/15`、Kit `105 passed + 14 subtests`、T5v core `27/27`、Guardrails `45/45`；三路独立 review 均为 Critical=0、Important=0 |
 | B30 | H1/H3 收口时启动时间变化已做功能归因 | H1 StartedAt=`2026-07-15T08:53:57.916638417Z`；H3 StartedAt=`2026-07-15T09:11:33.186856916Z`；两次都是 vision 数据层修改后的显式 `docker restart`，不是主机重启、容器重建、换镜像或 T4 源码部署 |
 | B31 | 收口时官方与 fork main 仍等于冻结基线 | 实时 `git ls-remote`、本地 main、origin/main、upstream/main 均为 `569b912d7d0931c7256e9f5fb326609e9deda377` |
+| B32 | T4R 的最新稳定官方 Release 已重新冻结 | GitHub `releases/latest` 返回 `v2026.7.7.2` / `Hermes Agent v0.18.2`、`draft=false`、`prerelease=false`、`published_at=2026-07-08T03:11:22Z`；tag 解引用 SHA 为 `9de9c25f620ff7f1ce0fd5457d596052d5159596` |
+| B33 | 稳定 Release 与滚动 main 不是同一基线 | `upstream/main=9df5f879b4a5925c0f8f947e7e16ed8e845932c3`；`git rev-list --left-right --count release...main` 输出 `0 695`，release 与原 T4 `569b912...` 输出 `0 685` |
+| B34 | T4R 授权和安装选择已关闭 | 2026-07-15 用户明确“同意部署”，随后确认“以最新的 release 版本为基线，其他的同意”；因此 Product 固定 `--plugins-only`，候选通过后允许 H1 数据冻结、切换与所需重启 |
+| B35 | H1 第一批缓存清理已精确完成且未重启 | 删除前复核三个路径无打开文件/CWD、正式 JDK 17.0.17 与 Maven 3.9.12 可用；仅删除 `data/cache/toolchain`、`data/.cache`、`data/.local/jdk/jdk-17.0.19+10`，删除前 `du` 合计 `617016 KiB`；结果 `PASS`，image ID、StartedAt=`2026-07-15T08:53:57.916638417Z`、RestartCount=`0` 均不变。同期 `df` 净增仅 `408 KiB`，因此只证明路径和对应数据已移除，不把 `du` 数字冒充文件系统实际空闲增量 |
+| B36 | T4R1 三路源码已固定并推送 | Release 运行分支 `release/h1-v2026.7.7.2-t4r@62b304750762c69e7d4e611c5f2ec3ff296f58e6`；Kit `735e943fe8d9d58ca007677a56dbad35a3e8d329`；Guardrails `8d80a46817bb6fdd27bf67e1a4640f5fa99ed2ba`；三个工作树均无未提交文件 |
+| B37 | 官方镜像底座和目标镜像可复现 | 官方 `v2026.7.7.2` 镜像摘要 `sha256:9c841866021c54c4596849f6135717e8a4d52ba510b7f52c50aef1de1a283973`；目标镜像摘要 `sha256:b67a60b32319f78a7b62b3b67d220f43e9d64c6ff4ca77c95bddbc0738ad188d`；镜像标签记录 Release、runtime、Kit、Guardrails 四个完整 SHA |
+| B38 | T4R 已受控发布到 H1 | H1 `status=running`、版本 `0.18.2`、runtime SHA=`62b304750762c69e7d4e611c5f2ec3ff296f58e6`、StartedAt=`2026-07-15T13:11:21.295530766Z`、RestartCount=`0`；`127.0.0.1:8651/9131` 均连通；H3 镜像、StartedAt 和 RestartCount 与发布前一致 |
+| B39 | T4R 回滚材料完整保留 | 备份根 `/Users/cicada/hermes-docker/hermes-1/backups/t4r-20260715210716` 为 `7221236 KiB`；冻结后 rsync 差异计数 `0`，dbstore `61424 KiB / 10 files`；旧 compose SHA256=`4c1c622b88dfef05d4df2267e31e95ac3dab51a2f4d10653eacd16e7794fed2e`，旧镜像摘要 `sha256:f4c19e19a19c0d4fe159768b6fe0e55a69fee6041bf21b440db8f5151886400c` 仍保留 |
+| B40 | 候选与生产离线验收通过 | Release 重点回归 `103/103`、Kit `105/105` 且候选 verifier `35/35`、Guardrails `48/48`；Guardrails install/verify/install 的 changed_count=`1/0/0`，生产导入成功；H1 启动错误计数 `0`，未发送真实消息 |
+| B41 | 官方 main 贡献线已补齐 | 官方 PR #64892、#64895、#64971、#64972、#64973、#64975 均为 OPEN；前两项在当前 main `9df5f879...` 上无冲突并通过合并回归 `42/42`，后四项直接从该 main 创建；Kit PR #1 与 Guardrails PR #1 均为 OPEN |
 
 ## 核心决策
 
@@ -61,7 +71,7 @@ superseded_by: []
 | 工作区 | 新建 `openclaw-hermes-workspace`，旧目录不原地改造 | B02、B06、B07 说明旧顶层和旧主仓库无法提供干净边界 |
 | OpenClaw | 单独放入 `openclaw-workspace/sources/openclaw` | 旧 OpenClaw 未参与 H1/H3 部署，本轮只做源码分离 |
 | Hermes 源码 | 从 `deanjo/hermes-agent` 全新 clone，配置官方 upstream | B09、B12；个人 fork 才能承载官方 PR 分支 |
-| Hermes 修改 | 所有自有核心修复只在执行时最新官方基线上的 fork 分支实现，并向官方提 PR | B17 证明冻结基线会过期；[04](04_SOURCE_RELEASE_AND_UPGRADE_POLICY.md) 固定源码权威与升级取舍 |
+| Hermes 修改 | H1 运行修复从最新稳定 Release 建 fork 发布分支；同一问题在当前 main 前向实现并向官方提 PR | B32-B33 证明 Release 与 main 相差 695 个提交；[04](04_SOURCE_RELEASE_AND_UPGRADE_POLICY.md) 固定双轨源码权威与升级取舍 |
 | Feishu wsfix | 导出可恢复 patch 后退役 | 睡眠复盘与 B16 支持根因在 Mac 睡眠；分支当前仍有 7 个修改文件，删除前必须归档 |
 | Product Confirmation | 放入 DingTalk Kit，核心修改目标为零 | 最新 Hermes 已有 `pre_gateway_dispatch` 公开 hook；staffId 来自 `event.source.user_id_alt` |
 | DingTalk 发布 | Kit GitHub 提交先于镜像；Product-only 可用 `--plugins-only` 原子安装，默认 legacy compat 适配前不可发布 | B19-B21、B26-B27；整分支或旧 gateway 整文件覆盖会带回历史漂移 |
@@ -75,7 +85,8 @@ superseded_by: []
 - `[已关闭]` T3 当时官方 SHA 已由 R2 固定为 B12；B17 说明当前已继续前进，T4 必须重新冻结而不是改写历史验收。
 - `[已关闭]` T21、Product 与 T5v 源码实现、测试、GitHub PR 和独立 review 已由 [R3](reviews/R3_t4_source_release_verification.md) 收口。
 - `[已关闭]` mention 分支行为已精选进入 Kit；默认 legacy compat 在 `569b912` 上的两个缺失锚点为 `ADAPT_REQUIRED`，未整体迁入 gateway 三文件。
-- `[未知]` 官方 PR #64892、#64895 与两个项目 PR #1 的合入时间；四个 PR 当前均为 OPEN。
-- `[未知]` 采用 Product-only 还是先适配默认 legacy compat，以及具体 H1 发布窗口；在用户单独授权 T4R 前不构建、部署或重启 H1。
+- `[未知]` 六个官方 PR 与 Kit、Guardrails 两个项目 PR 的合入时间；2026-07-15 查询时八个 PR 均为 OPEN。
+- `[已关闭]` Product 使用 `--plugins-only`，T4R 构建、候选通过后的 H1 切换与所需重启已经用户授权，见 B34。
+- `[已关闭]` T21、T5v、skill refresh、quotefix、toolgate、delegate 与 HANDOFF-GUARD 在 Release/main 两线均为 `LOCAL_REQUIRED`；固定提交、测试、官方 PR 和删除条件见 [T4R1](tasks/T4R1_reconcile_latest_release.md)。
 - `[未知]` 596 个旧资产中每一项的最终分类；T5 在逐项证据审计前不得批量删除。
 - `[未知]` H3 是否以其他补丁形式实现相同能力；本计划不根据镜像名推断。
