@@ -18,6 +18,7 @@ superseded_by: []
 | [workspace-migration_20260714/README.md](workspace-migration_20260714/README.md) | current | 本次工作区治理的导航入口 |
 | [workspace-migration_20260714/00_ROADMAP.md](workspace-migration_20260714/00_ROADMAP.md) | current | 目标、顺序、停止条件和阶段状态 |
 | [workspace-migration_20260714/04_SOURCE_RELEASE_AND_UPGRADE_POLICY.md](workspace-migration_20260714/04_SOURCE_RELEASE_AND_UPGRADE_POLICY.md) | current | 源码权威、官方升级取舍和三个发布状态 |
+| [legacy_runtime_evidence_20260715.md](legacy_runtime_evidence_20260715.md) | archive | 旧运行文档的高保真归档位置、13 份锁定证据哈希与现行权威映射 |
 | [../CONTRIBUTING_DOCS.md](../CONTRIBUTING_DOCS.md) | current | 文档目录、frontmatter 和迁移规范 |
 
 ## 加载顺序
@@ -28,6 +29,6 @@ superseded_by: []
 4. `archive`、`superseded` 默认不加载正文；需要历史证据时只读相关章节。
 5. 判断远程行为时重新运行对应实例的只读检查，不引用本地文档作 live 证明。
 
-## 计划中的分类
+## 分类边界
 
-`operations/`、`integrations/`、`upstream/`、`incidents/`、`projects/` 和 `archive/` 将在相关旧资产实际迁入时创建；第一阶段不创建空目录。
+当前执行权威集中在 `workspace-migration_20260714/`。旧运行文档原件因包含过期命令、实例路径和认证材料形态，不复制进公开 docs；它们的精确压缩包、哈希和迁移索引见上方 archive 文档。

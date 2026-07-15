@@ -71,7 +71,7 @@ Shard documents: 01 baseline and decisions; 02 acceptance matrix; 03 review gate
 | T4 | [T21、Product、T5v 实现与开源](tasks/T4_extract_core_and_plugins.md) | `PASS / SOURCE_COMPLETE / RELEASE_READY_SCOPED / REVIEW_CLEARED_20260715` |
 | T4R1 | [最新稳定 Release 对账与回移](tasks/T4R1_reconcile_latest_release.md) | `PASS / RELEASE_RECONCILED_20260715` |
 | T4R | [固定版本并受控发布到 H1](tasks/T4R_release_to_h1.md) | `PASS / RUNTIME_DEPLOYED_H1_20260715` |
-| T5 | [旧 docs 治理与最终清仓](tasks/T5_govern_docs_and_cleanup_legacy.md) | `NOT_STARTED` |
+| T5 | [旧 docs 治理与最终清仓](tasks/T5_govern_docs_and_cleanup_legacy.md) | `IN_PROGRESS / PRE_DELETE_REVIEW` |
 
 ## 文档加载顺序
 
@@ -97,7 +97,7 @@ Shard documents: 01 baseline and decisions; 02 acceptance matrix; 03 review gate
 
 ## 当前结论
 
-T3 的 `226e8de` 快照已通过 A08-A10 和 [R2](reviews/R2_t3_repository_migration_verification.md) 独立复核，但它不是永久 live 基线。T4 已在执行时官方 `569b912d7d0931c7256e9f5fb326609e9deda377` 上收口：T21 fork `fca44fd00b5c0575469c51e96ec5fa731d5c7222`、Kit `0e37e209cc6c1df8b96dd28f80adb7c00e09bc11`、T5v 通用 core `dd45532f563e72adcf0f605ff11ea441187232fc`、Guardrails `14c28d4444273232c8753314ff928927fce651c3`，四个 PR 均已创建；A11-A13、A15 经 [R3](reviews/R3_t4_source_release_verification.md) 复核为 `PASS`。
+T3 的 `226e8de` 快照已通过 A08-A10 和 [R2](reviews/R2_t3_repository_migration_verification.md) 独立复核，但它不是永久 live 基线。T4 已在执行时官方 `569b912d7d0931c7256e9f5fb326609e9deda377` 上收口：T21 fork `fca44fd00b5c0575469c51e96ec5fa731d5c7222`、Kit `0e37e209cc6c1df8b96dd28f80adb7c00e09bc11`、T5v 通用 core `dd45532f563e72adcf0f605ff11ea441187232fc`、Guardrails `14c28d4444273232c8753314ff928927fce651c3`，形成四条初始 PR 线；A11-A13、A15 经 [R3](reviews/R3_t4_source_release_verification.md) 复核为 `PASS`。T4R1 前向对账后，当前共有官方 6 个、Kit 1 个、Guardrails 1 个 PR。
 
 Product/mention 只在 `--plugins-only` 路径达到 `RELEASE_READY_PRODUCT_ONLY`；默认 legacy compat 因 `run.reply_sentinel_constant` 和 `session.path_sensitive_validation` 两个旧锚点不匹配，保持 `ADAPT_REQUIRED`，不能写成整套 Kit 已可发布。T4 也没有把源码部署到 H1/H3。
 
@@ -105,4 +105,6 @@ Product/mention 只在 `--plugins-only` 路径达到 `RELEASE_READY_PRODUCT_ONLY
 
 2026-07-15 T4R1 已完成双线对账：运行线固定 `v2026.7.7.2^{}`=`9de9c25f620ff7f1ce0fd5457d596052d5159596` 和 fork `62b304750762c69e7d4e611c5f2ec3ff296f58e6`；官方贡献线固定 `upstream/main=9df5f879b4a5925c0f8f947e7e16ed8e845932c3`。较早的 PR #64892、#64895 在该 main 上无冲突重放并通过 `42/42` 合并回归；其余四个官方 PR 直接从该 main 创建。Kit 固定 `735e943fe8d9d58ca007677a56dbad35a3e8d329`，Guardrails 固定 `8d80a46817bb6fdd27bf67e1a4640f5fa99ed2ba`。
 
-T4R 已把 H1 发布为 Hermes `0.18.2`：目标镜像摘要 `sha256:b67a60b32319f78a7b62b3b67d220f43e9d64c6ff4ca77c95bddbc0738ad188d`，`StartedAt=2026-07-15T13:11:21.295530766Z`、`RestartCount=0`，本地端口 `8651/9131` 均连通，启动错误计数为 `0`。发布前 data 与 dbstore 备份位于 `/Users/cicada/hermes-docker/hermes-1/backups/t4r-20260715210716`，旧镜像仍保留用于回滚；没有部署 H3、没有发送真实平台消息。A16 已 `PASS`；T5 尚未开始，A14 仍未通过。
+T4R 已把 H1 发布为 Hermes `0.18.2`：目标镜像摘要 `sha256:b67a60b32319f78a7b62b3b67d220f43e9d64c6ff4ca77c95bddbc0738ad188d`，`StartedAt=2026-07-15T13:11:21.295530766Z`、`RestartCount=0`，本地端口 `8651/9131` 均连通，启动错误计数为 `0`。发布前 data 与 dbstore 备份位于 `/Users/cicada/hermes-docker/hermes-1/backups/t4r-20260715210716`，旧镜像仍保留用于回滚；没有部署 H3、没有发送真实平台消息。A16 已 `PASS`。
+
+T5 已完成删除前资产治理：旧 docs `603 = migrate 13 + archive 567 + discard 23`，旧 Hermes dirty `56 = migrate 20 + archive 36`，旧顶层真实为 `19` 项；私有运行资产固定在本地提交 `2d5e155f4c393d3e9389ba2a1cd7066dac5b00b5`。当前无 `defer`，但独立最终复核和旧根实际删除尚未完成，因此 A14 仍未通过。

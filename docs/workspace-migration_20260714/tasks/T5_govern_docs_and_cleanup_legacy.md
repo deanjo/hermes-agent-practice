@@ -52,10 +52,19 @@ superseded_by: []
 
 T5 只治理资产，不代跑 hermes-1 的业务工作：供应商 contact 投影层修复、bot 的 `merge_uat` 或部署申请、真实消息、以及 Kit PR 何时合入 main，均保持原负责人和单独授权边界。
 
+## 当前进度（删除前）
+
+- 旧 docs：`603 = migrate 13 + archive 567 + discard 23`；原件压缩包 `603/603` 逐文件 SHA256 复核通过。
+- 旧 Hermes dirty：`56 = migrate 20 + archive 36`；H3 插件与测试 `20/20` 迁入本地私有运行资产项目。
+- 旧顶层：真实 `19` 项；两个异常空文件名以 Base64 路径字节登记，没有被换行误计数。
+- 恢复验证：main 25 个、Product 8 个、T5v 5 个提交在临时 clone 中 `3/3` 恢复到相同 tree；main/T21 工作树补丁对干净索引检查通过。
+- 私有运行资产项目固定为 `2d5e155f4c393d3e9389ba2a1cd7066dac5b00b5`，无 GitHub remote；原始 tar/patch 被 Git 忽略。
+- 当前无 `defer`，但独立删除前复核与旧根实际删除尚未完成，A14 继续为 `INSUFFICIENT_EVIDENCE`。
+
 ## 验收与删除门禁
 
 - 每个迁移后的 docs 目录有唯一 `README.md`，所有 Markdown frontmatter 合规且链接有效。
-- 新项目 Git 状态、测试、GitHub URL、四个 T4 PR（T21 #64892、core #64895、Kit #1、Guardrails #1）和归档清单完整。
+- 新项目 Git 状态、测试、GitHub URL、八个当前 PR（官方 #64892、#64895、#64971、#64972、#64973、#64975；Kit #1；Guardrails #1）和归档清单完整。
 - 结束时重新只读检查 H1/H3；本任务不得改变镜像和启动时间。
 - A14 只有在分类表无 `defer`、A15 PASS、A16 PASS 或有证据判定 NOT_APPLICABLE、独立最终验收 PASS 后才能通过。
 - A14 未通过时只报告剩余项，旧 `/Users/cicada/SourceCode/openclaw-harmes` 整体保留。
