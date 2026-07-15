@@ -52,14 +52,14 @@ superseded_by: []
 
 T5 只治理资产，不代跑 hermes-1 的业务工作：供应商 contact 投影层修复、bot 的 `merge_uat` 或部署申请、真实消息、以及 Kit PR 何时合入 main，均保持原负责人和单独授权边界。
 
-## 当前进度（删除前）
+## 最终结果
 
 - 旧 docs：`603 = migrate 13 + archive 567 + discard 23`；原件压缩包 `603/603` 逐文件 SHA256 复核通过。
 - 旧 Hermes dirty：`56 = migrate 20 + archive 36`；H3 插件与测试 `20/20` 迁入本地私有运行资产项目。
 - 旧顶层：真实 `19` 项；两个异常空文件名以 Base64 路径字节登记，没有被换行误计数。
 - 恢复验证：main 25 个、Product 8 个、T5v 5 个提交在临时 clone 中 `3/3` 恢复到相同 tree；main/T21 工作树补丁对干净索引检查通过。
 - 私有运行资产项目固定为 `37322d411326c82698cb13f7e9904df178ccb8a7`，无 GitHub remote；原始 tar/patch 被 Git 忽略。第二份只读副本位于 `/Users/cicada/Documents/Codex/archives/openclaw-harmes-t5-20260715/`，26 个文件全部验签，Git bundle 固定同一 HEAD。
-- 当前无 `defer`，但独立删除前复核与旧根实际删除尚未完成，A14 继续为 `INSUFFICIENT_EVIDENCE`。
+- 当前无 `defer`；独立 reviewer 给出 `PRE_DELETE_PASS / Critical=0 / Important=0`。旧根已删除，释放 `2,076,904 KiB`；删除后主归档 SHA、第二副本 `25/25`、H1/H3 零漂移和五个核心仓库 clean 均复核通过。A14=`PASS`，见 [R5](../reviews/R5_t5_legacy_cleanup_verification.md)。
 
 ## 验收与删除门禁
 

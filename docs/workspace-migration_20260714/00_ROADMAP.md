@@ -71,7 +71,7 @@ Shard documents: 01 baseline and decisions; 02 acceptance matrix; 03 review gate
 | T4 | [T21、Product、T5v 实现与开源](tasks/T4_extract_core_and_plugins.md) | `PASS / SOURCE_COMPLETE / RELEASE_READY_SCOPED / REVIEW_CLEARED_20260715` |
 | T4R1 | [最新稳定 Release 对账与回移](tasks/T4R1_reconcile_latest_release.md) | `PASS / RELEASE_RECONCILED_20260715` |
 | T4R | [固定版本并受控发布到 H1](tasks/T4R_release_to_h1.md) | `PASS / RUNTIME_DEPLOYED_H1_20260715` |
-| T5 | [旧 docs 治理与最终清仓](tasks/T5_govern_docs_and_cleanup_legacy.md) | `IN_PROGRESS / PRE_DELETE_REVIEW` |
+| T5 | [旧 docs 治理与最终清仓](tasks/T5_govern_docs_and_cleanup_legacy.md) | `PASS / REVIEW_CLEARED_20260715` |
 
 ## 文档加载顺序
 
@@ -107,4 +107,4 @@ Product/mention 只在 `--plugins-only` 路径达到 `RELEASE_READY_PRODUCT_ONLY
 
 T4R 已把 H1 发布为 Hermes `0.18.2`：目标镜像摘要 `sha256:b67a60b32319f78a7b62b3b67d220f43e9d64c6ff4ca77c95bddbc0738ad188d`，`StartedAt=2026-07-15T13:11:21.295530766Z`、`RestartCount=0`，本地端口 `8651/9131` 均连通，启动错误计数为 `0`。发布前 data 与 dbstore 备份位于 `/Users/cicada/hermes-docker/hermes-1/backups/t4r-20260715210716`，旧镜像仍保留用于回滚；没有部署 H3、没有发送真实平台消息。A16 已 `PASS`。
 
-T5 已完成删除前资产治理：旧 docs `603 = migrate 13 + archive 567 + discard 23`，旧 Hermes dirty `56 = migrate 20 + archive 36`，旧顶层真实为 `19` 项；私有运行资产固定在本地提交 `37322d411326c82698cb13f7e9904df178ccb8a7`。当前无 `defer`，但独立最终复核和旧根实际删除尚未完成，因此 A14 仍未通过。
+T5 已完成资产治理：旧 docs `603 = migrate 13 + archive 567 + discard 23`，旧 Hermes dirty `56 = migrate 20 + archive 36`，旧顶层真实为 `19` 项；私有运行资产固定在本地提交 `37322d411326c82698cb13f7e9904df178ccb8a7`。主/第二归档副本均验签，独立删除前复核为 `PRE_DELETE_PASS`；旧根随后删除并释放 `2,076,904 KiB`，删除后 H1/H3 零漂移。A14 经 [R5](reviews/R5_t5_legacy_cleanup_verification.md) 复核为 `PASS`，A01-A16 全部收口。

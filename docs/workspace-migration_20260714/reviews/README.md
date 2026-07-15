@@ -15,5 +15,6 @@ superseded_by: []
 | [R2_t3_repository_migration_verification.md](R2_t3_repository_migration_verification.md) | T3 A08-A10、公开仓库与远程只读边界复核 | `CLEARED` |
 | [R3_t4_source_release_verification.md](R3_t4_source_release_verification.md) | T4 A11-A13、A15 源码与限定发布材料复核；不覆盖 T4R | `CLEARED` |
 | [R4_t4r_h1_release_verification.md](R4_t4r_h1_release_verification.md) | T4R A16 运行态与回滚材料独立复核；不覆盖 T5/A14 | `CLEARED` |
+| [R5_t5_legacy_cleanup_verification.md](R5_t5_legacy_cleanup_verification.md) | T5 A14 分类、恢复材料、删除门与删除后零漂移复核 | `CLEARED` |
 
 每个 record 只对其 Input Packet 和验收行有效，不外推为整项迁移完成。

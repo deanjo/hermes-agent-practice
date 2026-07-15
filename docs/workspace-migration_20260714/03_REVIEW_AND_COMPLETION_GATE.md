@@ -93,6 +93,14 @@ user_acceptance=confirmed_20260714
 - A16：H1 运行 Hermes `0.18.2`，目标镜像摘要 `sha256:b67a60b32319f78a7b62b3b67d220f43e9d64c6ff4ca77c95bddbc0738ad188d`，StartedAt=`2026-07-15T13:11:21.295530766Z`、RestartCount=`0`；两个端口和离线验证通过。
 - H3 与发布前基线一致；真实消息、业务仓操作和旧目录删除均未执行。
 
+## T5 独立复核
+
+- Record：[reviews/R5_t5_legacy_cleanup_verification.md](reviews/R5_t5_legacy_cleanup_verification.md)
+- Roll-up：`CLEARED`，Critical=0、Important=0。
+- 分类：旧 docs `603`、旧 Hermes dirty `56`、旧顶层 `19` 项全部进入五分类，无 `defer`。
+- 恢复：docs payload `603/603`、AppleDouble `0`；main/Product/T5v 的 25/8/5 个提交恢复 tree 一致；main/T21 工作树补丁检查通过；第二副本根校验 `25/25`。
+- 删除：旧路径已不存在，释放 `2,076,904 KiB`；删除后 H1/H3 镜像、StartedAt、RestartCount 均与 T5 起点一致。
+
 ## 后续实现门禁
 
 每个代码任务最多进行一轮独立 Design Drift + Code Review 合并审阅，输入必须包含：
@@ -127,7 +135,7 @@ T4 每路 review 还必须检查：
 2. 独立 reviewer 给出带文件锚点的结论。
 3. 主 Agent逐行更新验收矩阵，不把局部测试写成全链路 PASS。
 4. 记录未验证范围、GitHub URL、上游 PR、旧资产归档和回滚方式。
-5. 只有 A01-A16 全部 PASS 或经证据判定 NOT_APPLICABLE，才能删除旧顶层；当前 A16 已 PASS，但 A14 仍为 `INSUFFICIENT_EVIDENCE`，所以旧顶层继续保留。
+5. 只有 A01-A16 全部 PASS 或经证据判定 NOT_APPLICABLE，才能删除旧顶层；当前 A01-A16 已全部 PASS，旧顶层已在 R5 删除门通过后移除。
 
 ## 停止 review 的条件
 
