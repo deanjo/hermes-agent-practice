@@ -48,7 +48,7 @@ worker 只加载本 Roadmap、当前 task、对应仓库规则和必要代码路
 - DingTalk `@` 与 `errcode != 0` 检查归 Kit adapter。
 - 以 `feat/dingtalk-admin-private-send@f4e7816` 的干净隔离 worktree 为开发起点；`feat/dingtalk-mention-meta@8b9f185` 只作行为和测试来源。
 - 可精选 `ad1ccea`、`8b9f185` 及 `37e0147` 中 adapter 的 `at_user_ids / errcode` 改动；禁止整体合并 `37e0147` 的 `gateway/run.py`、`gateway/session.py`、`gateway/session_context.py` 快照。
-- 禁止迁入私有环境变量桥接；在固定官方 Hermes 树运行标准安装后，Hermes core diff 必须为零；最终源码先提交并推送 Kit GitHub。
+- 禁止迁入私有环境变量桥接；Product/mention 增量的 Hermes core diff 必须为零。Kit 既有 legacy compat 要在安装报告中单独列出并逐项给升级结论，不能混成 Product 修改，也不能为过门禁擅自删除。最终源码先提交并推送 Kit GitHub。
 
 ## T5v 契约
 
